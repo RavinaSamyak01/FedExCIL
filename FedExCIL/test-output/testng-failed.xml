@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="none" name="Failed suite [FedExCILSuite]">
+  <test parallel="none" name="FedExCILOrderCreation(failed)">
+    <classes>
+      <class name="fedexCILStaging.FedExCILOrderCreation">
+        <methods>
+          <include name="Complete"/>
+          <include name="SendEmail"/>
+          <include name="login"/>
+          <include name="fedEXCILOrder"/>
+        </methods>
+      </class> <!-- fedexCILStaging.FedExCILOrderCreation -->
+    </classes>
+  </test> <!-- FedExCILOrderCreation(failed) -->
+</suite> <!-- Failed suite [FedExCILSuite] -->
