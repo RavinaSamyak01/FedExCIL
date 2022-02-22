@@ -44,7 +44,7 @@ public class FedExCILOrderCreation {
 	@Test
 	public static void fedEXCILOrder() throws Exception {
 		// Read data from Excel
-		File src = new File("C:\\Ravina\\FedExCIL\\TestFiles\\FedExCILTestResult.xlsx");
+		File src = new File(".\\TestFiles\\FedExCILTestResult.xlsx");
 		FileInputStream fis = new FileInputStream(src);
 		Workbook workbook = WorkbookFactory.create(fis);
 		Sheet sh1 = workbook.getSheet("Sheet1");
@@ -68,7 +68,7 @@ public class FedExCILOrderCreation {
 			jobid = matcher.group();
 			System.out.println("JOB# " + jobid);
 
-			File src1 = new File("C:\\Ravina\\FedExCIL\\TestFiles\\FedExCILTestResult.xlsx");
+			File src1 = new File(".\\TestFiles\\FedExCILTestResult.xlsx");
 			FileOutputStream fis1 = new FileOutputStream(src1);
 			Sheet sh2 = workbook.getSheet("Sheet1");
 			sh2.getRow(i).createCell(1).setCellValue(jobid);
@@ -81,11 +81,11 @@ public class FedExCILOrderCreation {
 
 	@AfterSuite
 	public void SendEmail() throws Exception {
-		String subject = "STAGING : FedEx_CIL EDI - Shipment Creation Using SELENIUM";
+		String subject = "Selenium Automation Script: STAGING FedEx_CIL EDI - Shipment Creation";
 		try {
 			//
 			Email.sendMail(
-					"ravina.prajapati@samyak.com, asharma@samyak.com,parth.doshi@samyak.com,kunjan.modi@samyak.com, pgandhi@samyak.com",
+					"ravina.prajapati@samyak.com, asharma@samyak.com,parth.doshi@samyak.com, pgandhi@samyak.com",
 					subject, msg.toString(), "");
 		} catch (Exception ex) {
 			Logger.getLogger(FedExCILOrderCreation.class.getName()).log(Level.SEVERE, null, ex);
