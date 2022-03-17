@@ -2,24 +2,24 @@
 <testng-results total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-02-22T10:02:36Z" name="FedExCILSuite" finished-at="2022-02-22T10:04:31Z" duration-ms="114676">
+  <suite started-at="2022-03-17T04:02:58Z" name="FedExCILSuite" finished-at="2022-03-17T04:05:26Z" duration-ms="148441">
     <groups>
     </groups>
-    <test started-at="2022-02-22T10:02:36Z" name="FedExCILOrderCreation" finished-at="2022-02-22T10:04:31Z" duration-ms="114676">
+    <test started-at="2022-03-17T04:02:58Z" name="FedExCILOrderCreation" finished-at="2022-03-17T04:05:26Z" duration-ms="148441">
       <class name="fedexCILStaging.FedExCILOrderCreation">
-        <test-method is-config="true" signature="login()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@413f69cc]" started-at="2022-02-22T15:32:36Z" name="login" finished-at="2022-02-22T15:32:46Z" duration-ms="10075" status="PASS">
+        <test-method is-config="true" signature="login()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@3214ee6]" started-at="2022-03-17T09:32:58Z" name="login" finished-at="2022-03-17T09:33:09Z" duration-ms="10992" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- login -->
-        <test-method signature="fedEXCILOrder()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@413f69cc]" started-at="2022-02-22T15:32:46Z" name="fedEXCILOrder" finished-at="2022-02-22T15:34:30Z" duration-ms="104224" status="PASS">
+        <test-method signature="fedEXCILOrder()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@3214ee6]" started-at="2022-03-17T09:33:09Z" name="fedEXCILOrder" finished-at="2022-03-17T09:35:26Z" duration-ms="137162" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- fedEXCILOrder -->
-        <test-method is-config="true" signature="Complete()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@413f69cc]" started-at="2022-02-22T15:34:30Z" name="Complete" finished-at="2022-02-22T15:34:31Z" duration-ms="357" status="PASS">
+        <test-method is-config="true" signature="Complete()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@3214ee6]" started-at="2022-03-17T09:35:26Z" name="Complete" finished-at="2022-03-17T09:35:26Z" duration-ms="275" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Complete -->
-        <test-method is-config="true" signature="SendEmail()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@413f69cc]" started-at="2022-02-22T15:34:31Z" name="SendEmail" finished-at="2022-02-22T15:34:34Z" duration-ms="3374" status="PASS">
+        <test-method is-config="true" signature="SendEmail()[pri:0, instance:fedexCILStaging.FedExCILOrderCreation@3214ee6]" started-at="2022-03-17T09:35:26Z" name="SendEmail" finished-at="2022-03-17T09:35:27Z" duration-ms="748" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SendEmail -->
