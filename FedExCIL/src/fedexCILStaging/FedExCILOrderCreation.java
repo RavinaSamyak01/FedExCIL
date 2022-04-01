@@ -19,6 +19,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -38,15 +40,17 @@ public class FedExCILOrderCreation {
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		// options.addArguments("headless");
-		options.addArguments("headless");
+		// options.addArguments("headless");
 		options.addArguments("--incognito");
 		options.addArguments("--test-type");
 		options.addArguments("--no-proxy-server");
 		options.addArguments("--proxy-bypass-list=*");
 		options.addArguments("--disable-extensions");
 		options.addArguments("--no-sandbox");
-		options.addArguments("--headless");
-		options.addArguments("window-size=1366x788");
+		options.addArguments("--start-maximized");
+
+		// options.addArguments("--headless");
+		// options.addArguments("window-size=1366x788");
 		capabilities.setPlatform(Platform.ANY);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		driver = new ChromeDriver(options);
@@ -77,6 +81,8 @@ public class FedExCILOrderCreation {
 
 	@Test
 	public static void fedEXCILOrder() throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+
 		// Read data from Excel
 		File src = new File(".\\TestFiles\\FedExCILTestResult.xlsx");
 		FileInputStream fis = new FileInputStream(src);
@@ -92,6 +98,7 @@ public class FedExCILOrderCreation {
 			Thread.sleep(1000);
 			driver.findElement(By.id("MainContent_btnProcess")).click();
 			Thread.sleep(3000);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("MainContent_lblresult")));
 			String Job = driver.findElement(By.id("MainContent_lblresult")).getText();
 
 			// System.out.println(Job);
