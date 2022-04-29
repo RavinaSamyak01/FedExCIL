@@ -106,8 +106,8 @@ public class FedExCILOrderCreation {
 			String Job = driver.findElement(By.id("MainContent_lblresult")).getText();
 			end = System.nanoTime();
 			OrderCreationTime = (end - start) * 1.0e-9;
-			System.out.println("Shipment Creation Time (in Seconds) = " + OrderCreationTime);
-			msg.append("Shipment Creation Time (in Seconds) = " + OrderCreationTime + "\n");
+			System.out.println("Order Creation Time (in Seconds) = " + OrderCreationTime);
+			msg.append("Order Creation Time (in Seconds) = " + OrderCreationTime + "\n");
 			// System.out.println(Job);
 
 			Pattern pattern = Pattern.compile("\\w+([0-9]+)\\w+([0-9]+)");
