@@ -33,6 +33,7 @@ public class FedExCILOrderCreation {
 	static WebDriver driver;
 	static StringBuilder msg = new StringBuilder();
 	static String jobid;
+	static double OrderCreationTime;
 
 	@BeforeMethod
 	public void login() throws InterruptedException {
@@ -81,6 +82,7 @@ public class FedExCILOrderCreation {
 
 	@Test
 	public static void fedEXCILOrder() throws Exception {
+		long start, end;
 		WebDriverWait wait = new WebDriverWait(driver, 5);
 
 		// Read data from Excel
@@ -97,10 +99,15 @@ public class FedExCILOrderCreation {
 					.sendKeys("C:\\Users\\rprajapati\\git\\FedExCIL\\FedExCIL\\TestFiles\\" + file + ".txt");
 			Thread.sleep(1000);
 			driver.findElement(By.id("MainContent_btnProcess")).click();
+			// --start time
+			start = System.nanoTime();
 			Thread.sleep(3000);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("MainContent_lblresult")));
 			String Job = driver.findElement(By.id("MainContent_lblresult")).getText();
-
+			end = System.nanoTime();
+			OrderCreationTime = (end - start) * 1.0e-9;
+			System.out.println("Shipment Creation Time (in Seconds) = " + OrderCreationTime);
+			msg.append("Shipment Creation Time (in Seconds) = " + OrderCreationTime + "\n");
 			// System.out.println(Job);
 
 			Pattern pattern = Pattern.compile("\\w+([0-9]+)\\w+([0-9]+)");

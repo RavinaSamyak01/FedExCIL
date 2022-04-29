@@ -5,8 +5,6 @@
     <classes>
       <class name="fedexCILStaging.FedExCILOrderCreation">
         <methods>
-          <include name="Complete"/>
-          <include name="SendEmail"/>
           <include name="login"/>
           <include name="fedEXCILOrder"/>
         </methods>
