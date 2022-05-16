@@ -81,6 +81,7 @@ public class FedExCILOrderCreation {
 		System.out.println("Current width: " + newWidth);
 
 		String Env = storage.getProperty("Env");
+		System.out.println("Env " + Env);
 		String baseUrl = null;
 		if (Env.equalsIgnoreCase("Pre-Prod")) {
 			baseUrl = storage.getProperty("PREPRODURL");
@@ -146,6 +147,7 @@ public class FedExCILOrderCreation {
 	@AfterSuite
 	public void SendEmail() throws Exception {
 		String Env = storage.getProperty("Env");
+
 		String subject = "Selenium Automation Script: " + Env + " FedEx_CIL EDI - Shipment Creation";
 
 		try {
