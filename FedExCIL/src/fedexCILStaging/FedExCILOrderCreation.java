@@ -83,11 +83,11 @@ public class FedExCILOrderCreation {
 		String Env = storage.getProperty("Env");
 		String baseUrl = null;
 		if (Env.equalsIgnoreCase("Pre-Prod")) {
-			baseUrl = "http://10.20.104.82:9075/TestApplicationUtility/CILOrderCreationClient";
+			baseUrl = storage.getProperty("PREPRODURL");
 		} else if (Env.equalsIgnoreCase("STG")) {
-			baseUrl = "http://10.20.104.82:9077/TestApplicationUtility/CILOrderCreationClient";
+			baseUrl = storage.getProperty("STGURL");
 		} else if (Env.equalsIgnoreCase("DEV")) {
-			baseUrl = "http://10.20.104.82:9075/TestApplicationUtility/CILOrderCreationClient";
+			baseUrl = storage.getProperty("DEVURL");
 		}
 		Thread.sleep(2000);
 		driver.get(baseUrl);
