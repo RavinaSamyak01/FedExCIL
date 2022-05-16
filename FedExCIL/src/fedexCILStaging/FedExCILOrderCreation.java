@@ -3,6 +3,8 @@ package fedexCILStaging;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -29,6 +31,7 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class FedExCILOrderCreation {
+	public static Properties storage = new Properties();
 
 	static WebDriver driver;
 	static StringBuilder msg = new StringBuilder();
@@ -36,7 +39,10 @@ public class FedExCILOrderCreation {
 	static double OrderCreationTime;
 
 	@BeforeMethod
-	public void login() throws InterruptedException {
+	public void login() throws InterruptedException, IOException {
+		storage = new Properties();
+		FileInputStream fi = new FileInputStream(".\\TestFiles\\config.properties");
+		storage.load(fi);
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
@@ -50,7 +56,7 @@ public class FedExCILOrderCreation {
 		options.addArguments("--no-sandbox");
 		options.addArguments("--start-maximized");
 
-		// options.addArguments("--headless");
+		options.addArguments("--headless");
 		// options.addArguments("window-size=1366x788");
 		capabilities.setPlatform(Platform.ANY);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -73,7 +79,17 @@ public class FedExCILOrderCreation {
 		int newWidth = newSetDimension.getWidth();
 		System.out.println("Current height: " + newHeight);
 		System.out.println("Current width: " + newWidth);
-		String baseUrl = "http://10.20.104.82:9077/TestApplicationUtility/CILOrderCreationClient";
+
+		String Env = storage.getProperty("Env");
+		String baseUrl = null;
+		if (Env.equalsIgnoreCase("Pre-Prod")) {
+			baseUrl = "http://10.20.104.82:9075/TestApplicationUtility/CILOrderCreationClient";
+		} else if (Env.equalsIgnoreCase("STG")) {
+			baseUrl = "http://10.20.104.82:9077/TestApplicationUtility/CILOrderCreationClient";
+		} else if (Env.equalsIgnoreCase("DEV")) {
+			baseUrl = "http://10.20.104.82:9075/TestApplicationUtility/CILOrderCreationClient";
+		}
+		Thread.sleep(2000);
 		driver.get(baseUrl);
 
 		Thread.sleep(5000);
@@ -129,7 +145,9 @@ public class FedExCILOrderCreation {
 
 	@AfterSuite
 	public void SendEmail() throws Exception {
-		String subject = "Selenium Automation Script: STAGING FedEx_CIL EDI - Shipment Creation";
+		String Env = storage.getProperty("Env");
+		String subject = "Selenium Automation Script: " + Env + " FedEx_CIL EDI - Shipment Creation";
+
 		try {
 			//
 			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject,
