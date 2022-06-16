@@ -10,13 +10,16 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -144,13 +147,18 @@ public class FedExCILOrderCreation {
 					workbook.write(fis1);
 					fis1.close();
 					msg.append("JOB # " + jobid + "\n");
+					getScreenshot(driver, "FedExCILResponse");
+
 				} else {
 					msg.append("Response== " + Job + "\n");
+					msg.append("Order not created==FAIL" + "\n");
+					getScreenshot(driver, "FedExCILResponse");
 
 				}
 			} catch (Exception e) {
 				msg.append("Order not created==FAIL" + "\n");
 				msg.append("Response== " + Job + "\n");
+				getScreenshot(driver, "FedExCILResponse");
 
 			}
 		}
@@ -163,10 +171,11 @@ public class FedExCILOrderCreation {
 
 		String subject = "Selenium Automation Script: " + Env + " FedEx_CIL EDI - Shipment Creation";
 
+		String File = ".//TestFiles//FedExCILResponse.png";
 		try {
 			//
 			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject,
-					msg.toString(), "");
+					msg.toString(), File);
 		} catch (Exception ex) {
 			Logger.getLogger(FedExCILOrderCreation.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -175,5 +184,17 @@ public class FedExCILOrderCreation {
 	@AfterTest
 	public void Complete() throws Exception {
 		driver.close();
+	}
+
+	public static String getScreenshot(WebDriver driver, String screenshotName) throws IOException {
+
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		// after execution, you could see a folder "FailedTestsScreenshots" under src
+		// folder
+		String destination = System.getProperty("user.dir") + "/Screenshots/" + screenshotName + ".png";
+		File finalDestination = new File(destination);
+		FileUtils.copyFile(source, finalDestination);
+		return destination;
 	}
 }
