@@ -125,21 +125,34 @@ public class FedExCILOrderCreation {
 			OrderCreationTime = (end - start) * 1.0e-9;
 			System.out.println("Order Creation Time (in Seconds) = " + OrderCreationTime);
 			msg.append("Order Creation Time (in Seconds) = " + OrderCreationTime + "\n");
-			// System.out.println(Job);
 
-			Pattern pattern = Pattern.compile("\\w+([0-9]+)\\w+([0-9]+)");
-			Matcher matcher = pattern.matcher(Job);
-			matcher.find();
-			jobid = matcher.group();
-			System.out.println("JOB# " + jobid);
+			try {
+				if (Job.contains("<LoadTenderResult>")) {
 
-			File src1 = new File(".\\TestFiles\\FedExCILTestResult.xlsx");
-			FileOutputStream fis1 = new FileOutputStream(src1);
-			Sheet sh2 = workbook.getSheet("Sheet1");
-			sh2.getRow(i).createCell(1).setCellValue(jobid);
-			workbook.write(fis1);
-			fis1.close();
-			msg.append("JOB # " + jobid + "\n");
+					// System.out.println(Job);
+
+					Pattern pattern = Pattern.compile("\\w+([0-9]+)\\w+([0-9]+)");
+					Matcher matcher = pattern.matcher(Job);
+					matcher.find();
+					jobid = matcher.group();
+					System.out.println("JOB# " + jobid);
+
+					File src1 = new File(".\\TestFiles\\FedExCILTestResult.xlsx");
+					FileOutputStream fis1 = new FileOutputStream(src1);
+					Sheet sh2 = workbook.getSheet("Sheet1");
+					sh2.getRow(i).createCell(1).setCellValue(jobid);
+					workbook.write(fis1);
+					fis1.close();
+					msg.append("JOB # " + jobid + "\n");
+				} else {
+					msg.append("Response== " + Job + "\n");
+
+				}
+			} catch (Exception e) {
+				msg.append("Order not created==FAIL" + "\n");
+				msg.append("Response== " + Job + "\n");
+
+			}
 		}
 
 	}
